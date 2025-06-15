@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos Disponíveis</title>
+
+  <!-- Fonte moderna do Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+       background: url('https://i.pinimg.com/736x/fe/d9/b7/fed9b7c69ba6d56e55d89e010274218c.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+    }
+
+    .produtos-container {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .produtos-container h2 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      background-color: #fff;
+      /*ackground: linear-gradient(90deg, #FB2C8C, #FF3B30, #FF9500, #34C759, #007AFF, #5856D6);*/
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .produtos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .produto-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .produto-card:hover {
+     
+    }
+
+    .produto-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      border-radius: 20px;
+      background: #38dc84;
+      /*background: linear-gradient(90deg, #FB2C8C, #FF3B30, #FF9500, #FFCC00, #34C759, #007AFF, #5856D6);*/
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      z-index: -1;
+    }
+
+    .produto-card img {
+      width: auto;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 0px;
+    }
+
+    .produto-card h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+    }
+
+    .produto-card p {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 15px;
+    }
+
+    .produto-card button {
+    width: 250px;
+    height: 40px;
+    margin-bottom: 5px;
+     padding: 8px 20px;
+     background: #38dc84;
+     border-color: #38dc84;
+      background-color: #1cb60800;
+      border: 1px solid #38dc84;
+      border-radius: 9px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .produto-card button:hover {
+      background-color: #38dc84;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="produtos-container">
+     <img src="https://img.icons8.com/fluency/48/android-os.png" alt="Android">
+  <h2>Produtos Disponíveis</h2>
+  <div class="produtos-grid" id="produtos-grid"></div>
+</div>
+
+<script>
+  const produtos = [
+    {
+      nome: "Certificado iPhone",
+      descricao: "Desbloqueie recursos premium direto do seu celular.",
+      imagem: "./assets/painelclt.png",
+      botao: "COMPRAR",
+       link: "https://seusite.com/baixar-certificado"
+    },
+    {
+      nome: "App Android VIP 1",
+      descricao: "Acesso exclusivo com painel atualizado.",
+      imagem: "https://via.placeholder.com/100x100.png?text=Android",
+      botao: "Ver mais"
+    },
+    {
+      nome: "Ferramenta Turbo",
+      descricao: "Ative todas as funções direto pelo app.",
+      imagem: "https://via.placeholder.com/100x100.png?text=Turbo",
+      botao: "Ver detalhes"
+    }
+  ];
+
+const container = document.getElementById("produtos-grid");
+
+produtos.forEach(produto => {
+  const card = document.createElement("div");
+  card.classList.add("produto-card");
+
+  card.innerHTML = `
+    <img src="${produto.imagem}" alt="${produto.nome}">
+    <h3>${produto.nome}</h3>
+    <p>${produto.descricao}</p>
+    <button>${produto.botao}</button>
+  `;
+
+  const botao = card.querySelector("button");
+  botao.addEventListener("click", () => {
+    window.open(produto.link, "_blank"); // abre em nova aba
+  });
+
+  container.appendChild(card);
+});
+</script>
+
+</body>
+</html>
