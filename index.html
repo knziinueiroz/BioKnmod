@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KN | Página Oficial</title>
+    <meta name="description" content="Página oficial para apresentar serviços e painéis digitais." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <canvas id="bgCanvas" class="bg-canvas" aria-hidden="true"></canvas>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">KN</div>
+        <nav class="nav">
+          <label class="country-select" for="country">
+            <span class="sr-only">Selecionar país</span>
+            <select id="country" aria-label="Selecionar país" class="sr-only">
+              <option value="BR">Brasil</option>
+              <option value="US">Estados Unidos</option>
+            </select>
+            <details class="country-picker">
+              <summary class="country-toggle" aria-haspopup="listbox" aria-expanded="false">
+                <img class="flag" src="assets/flags/br.svg" alt="Bandeira do Brasil" />
+                <span class="label">Brasil</span>
+              </summary>
+              <ul class="country-menu" role="listbox" aria-label="País">
+                <li class="country-option" role="option" data-value="BR">
+                  <img class="flag" src="assets/flags/br.svg" alt="Bandeira do Brasil" />
+                  <span>Brasil</span>
+                </li>
+                <li class="country-option" role="option" data-value="US">
+                  <img class="flag" src="assets/flags/us.svg" alt="Bandeira dos Estados Unidos" />
+                  <span>Estados Unidos</span>
+                </li>
+              </ul>
+            </details>
+          </label>
+          <a id="navProductsLink" href="#produtos" data-i18n="nav.products">Produtos</a>
+          <button id="themeToggle" class="btn btn-secondary" type="button" aria-label="Alternar tema" data-i18n="btn.theme">Tema</button>
+          <button id="notifyToggle" class="btn btn-secondary" type="button" aria-label="Alternar notificações" title="Desativar notificações">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3c-3 0-5 2.7-5 6v2.5c0 .8-.4 1.7-1.2 2.3l-1.3 1.2h16l-1.3-1.2c-.8-.6-1.2-1.5-1.2-2.3V9c0-3.3-2-6-5-6z"/>
+              <path d="M9.5 18a2.5 2.5 0 0 0 5 0"/>
+            </svg>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      
+
+      
+
+      <section id="produtos" class="section">
+        <div class="container">
+          <h2 id="productsTitle" data-i18n="products.title">Produtos e Planos</h2>
+          <p id="productsSubtitle" class="section-subtitle" data-i18n="products.subtitle">Exemplos de itens que você pode oferecer.</p>
+          <div class="filters" aria-label="Filtros de produtos">
+            <div class="filter-row">
+              <div class="filter-tags" aria-label="Filtrar por categorias">
+                <button type="button" class="chip" data-tag="Android">Android</button>
+                <button type="button" class="chip" data-tag="iOS">iOS</button>
+                <button type="button" class="chip" data-tag="Mobile">Mobile</button>
+                <button type="button" class="chip" data-tag="PC">PC</button>
+                <button type="button" class="chip" data-tag="Emulador">Emulador</button>
+              </div>
+            </div>
+          </div>
+          <div id="productsGrid" class="products-grid"></div>
+        </div>
+      </section>
+
+      
+
+      
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> KN — <span id="siteLabel" data-i18n="site.label">Página Oficial</span></span>
+        <a id="footerPolicy" href="#" class="link-muted" data-i18n="footer.policy">Política de uso</a>
+      </div>
+    </footer>
+
+    <script src="assets/script.js"></script>
+  </body>
+</html>

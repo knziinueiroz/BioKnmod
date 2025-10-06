@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkout</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <style>
+      .checkout { padding: 40px 0; }
+      .checkout .box { border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: color-mix(in oklab, var(--bg), transparent 8%); }
+      .checkout h1 { margin-top: 0; }
+      .info { color: var(--muted); }
+      .product { display: flex; gap: 16px; align-items: center; margin: 12px 0 16px; }
+      .product .media img { width: 120px; height: auto; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+      .product .meta h2 { margin: 0 0 6px; font-size: 1.25rem; }
+      .product .price { font-weight: 600; color: var(--text); }
+    </style>
+  </head>
+  <body>
+    <canvas id="bgCanvas" class="bg-canvas" aria-hidden="true"></canvas>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">KN</div>
+        <nav class="nav">
+          <a href="index.html#produtos">Voltar</a>
+          <button id="themeToggle" class="btn btn-secondary" type="button" aria-label="Alternar tema" data-i18n="btn.theme">Tema</button>
+          <button id="notifyToggle" class="btn btn-secondary" type="button" aria-label="Alternar notificações" title="Desativar notificações">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3c-3 0-5 2.7-5 6v2.5c0 .8-.4 1.7-1.2 2.3l-1.3 1.2h16l-1.3-1.2c-.8-.6-1.2-1.5-1.2-2.3V9c0-3.3-2-6-5-6z"/>
+              <path d="M9.5 18a2.5 2.5 0 0 0 5 0"/>
+            </svg>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="checkout section">
+        <div class="container">
+          <div class="box">
+            <h1 id="checkoutTitle" data-i18n="checkout.title">Checkout</h1>
+            <p class="info" id="info"></p>
+            <div id="product" class="product" aria-live="polite">
+              <div class="media">
+                <img id="productImg" src="" alt="Imagem do produto" />
+              </div>
+              <div class="meta">
+                <h2 id="productTitle">Carregando produto…</h2>
+                <div class="price" id="productPrice"></div>
+              </div>
+            </div>
+            <div class="actions">
+              <a class="btn btn-primary" id="payLink" href="#" data-i18n="checkout.pay">Prosseguir para pagamento</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> KN — <span id="siteLabel" data-i18n="site.label">Página Oficial</span></span>
+        <a id="footerPolicy" href="#" class="link-muted" data-i18n="footer.policy">Política de uso</a>
+      </div>
+    </footer>
+
+    <!-- Script global para tema, partículas e seletor de país (reutilizado) -->
+    <script src="assets/script.js"></script>
+    <script>
+      // Inicializa informações do checkout a partir da URL
+      const params = new URLSearchParams(location.search);
+      const country = params.get('country') || 'BR';
+      const id = params.get('id') || 'produto';
+      document.body.setAttribute('data-country', country);
+      document.getElementById('year').textContent = new Date().getFullYear();
+      const infoEl = document.getElementById('info');
+      // aplica traduções de acordo com país
+      if (window.applyTranslationsByCountry) window.applyTranslationsByCountry(country);
+      if (window.t) {
+        infoEl.textContent = `${window.t('label.country')}: ${country} • ${window.t('label.product')}: ${id}`;
+      } else {
+        infoEl.textContent = `País: ${country} • Produto: ${id}`;
+      }
+
+      const payLink = document.getElementById('payLink');
+      const titleEl = document.getElementById('productTitle');
+      const imgEl = document.getElementById('productImg');
+      const priceEl = document.getElementById('productPrice');
+
+      // Busca informações do produto no JSON para exibir foto e preço
+      fetch('assets/products.json')
+        .then(res => res.json())
+        .then(products => {
+          const p = Array.isArray(products) ? products.find(x => x.id === id) : null;
+          if (!p) {
+            titleEl.textContent = (window.t ? window.t('product.notFound') : 'Produto não encontrado');
+            priceEl.textContent = '';
+            imgEl.src = 'assets/produtos/icon_image.png';
+            imgEl.alt = (window.t ? window.t('image.unavailable') : 'Imagem indisponível');
+            // fallback simples de link de pagamento
+            const fallback = {
+              BR: `https://example.com/checkout/br?id=${encodeURIComponent(id)}`,
+              US: `https://example.com/checkout/us?id=${encodeURIComponent(id)}`
+            };
+            const to = fallback[country] || fallback.BR;
+            payLink.setAttribute('data-href', to);
+            payLink.setAttribute('href', '#');
+            return;
+          }
+
+          // Título, imagem e preço por país
+          titleEl.textContent = p.title || 'Produto';
+          imgEl.src = p.image || 'assets/produtos/icon_image.png';
+          imgEl.alt = `Imagem do produto ${p.title || ''}`.trim();
+          const price = p.prices && p.prices[country] ? p.prices[country] : '';
+          priceEl.textContent = price;
+
+          // Link de pagamento: usa p.checkout[country] se for externo, senão fallback
+          let link = (p.checkout && p.checkout[country]) ? p.checkout[country] : '';
+          if (!link) {
+            // fallback simples quando não há link especificado no JSON
+            const fallback = {
+              BR: `checkout.html?country=BR&id=${encodeURIComponent(id)}`,
+              US: `checkout.html?country=US&id=${encodeURIComponent(id)}`
+            };
+            link = fallback[country] || fallback.BR;
+          }
+          payLink.setAttribute('data-href', link);
+          payLink.setAttribute('href', '#');
+        })
+        .catch(() => {
+          // erro ao carregar JSON — mantém fallback
+          titleEl.textContent = (window.t ? window.t('product.loadError') : 'Erro ao carregar produto');
+          imgEl.src = 'assets/produtos/icon_image.png';
+          imgEl.alt = (window.t ? window.t('image.unavailable') : 'Imagem indisponível');
+          const fallback = {
+            BR: `https://example.com/checkout/br?id=${encodeURIComponent(id)}`,
+            US: `https://example.com/checkout/us?id=${encodeURIComponent(id)}`
+          };
+          const to = fallback[country] || fallback.BR;
+          payLink.setAttribute('data-href', to);
+          payLink.setAttribute('href', '#');
+        });
+    </script>
+  </body>
+</html>
