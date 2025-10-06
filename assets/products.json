@@ -1,0 +1,97 @@
+[
+  {
+    "id": "painel-pro",
+    "title": "Painel Freestyle 2.0",
+    "image": "assets/produtos/freestyle.jpg",
+    "logoText": "PP",
+    "tags": ["Android", "Emulador"],
+    "desc": "Dashboard completo para gestão de acessos e relatórios.",
+    "features": ["Aimbot", "Gelo invertido", "Mira pro"],
+    "ctaText": "Comprar",
+    "checkout": {
+      "BR": "https://go.pepperpay.com.br/ys12m",
+      "US": "checkout.html?country=US&id=painel-pro"
+    },
+    "countries": ["BR", "US"],
+    "prices": {
+      "BR": "R$ 99,00",
+      "US": "$19.90"
+    }
+  },
+  {
+    "id": "automacao-premium",
+    "title": "Automação Premium",
+    "image": "assets/produtos/automacao-premium.svg",
+    "logoText": "AP",
+    "tags": ["Mobile", "iOS", "Android"],
+    "desc": "Ferramentas para automatizar tarefas legítimas com eficiência.",
+    "features": ["Integrações com APIs", "Logs e auditoria", "Suporte prioritário"],
+    "ctaText": "Comprar",
+    "checkout": {
+      "BR": "checkout.html?country=BR&id=automacao-premium",
+      "US": "checkout.html?country=US&id=automacao-premium"
+    },
+    "countries": ["BR", "US"],
+    "prices": {
+      "BR": "R$ 149,00",
+      "US": "$29.90"
+    }
+  },
+  {
+    "id": "consultoria",
+    "title": "Consultoria",
+    "image": "assets/produtos/consultoria.svg",
+    "logoText": "CT",
+    "tags": ["PC", "Mobile", "Emulador"],
+    "desc": "Ajuda personalizada para configurar seu painel e serviço.",
+    "features": ["Onboarding", "Boas práticas de segurança", "Documentação"],
+    "ctaText": "Comprar",
+    "checkout": {
+      "BR": "checkout.html?country=BR&id=consultoria",
+      "US": "checkout.html?country=US&id=consultoria"
+    },
+    "countries": ["BR", "US"],
+    "prices": {
+      "BR": "R$ 79,00",
+      "US": "$14.90"
+    }
+  },
+    {
+    "id": "consultoria",
+    "title": "Consultoria",
+    "image": "assets/produtos/consultoria.svg",
+    "logoText": "CT",
+    "tags": ["PC", "Mobile", "Emulador"],
+    "desc": "Ajuda personalizada para configurar seu painel e serviço.",
+    "features": ["Onboarding", "Boas práticas de segurança", "Documentação"],
+    "ctaText": "Comprar",
+    "checkout": {
+      "BR": "checkout.html?country=BR&id=consultoria",
+      "US": "checkout.html?country=US&id=consultoria"
+    },
+    "countries": ["BR", "US"],
+    "prices": {
+      "BR": "R$ 79,00",
+      "US": "$14.90"
+    }
+  },
+    {
+    "id": "consultoria",
+    "title": "Consultoria",
+    "image": "assets/produtos/darkaim.png",
+    "logoText": "CT",
+    "tags": ["PC", "Mobile", "Emulador"],
+    "desc": "Ajuda personalizada para configurar seu painel e serviço.",
+    "features": ["Onboarding", "Boas práticas de segurança", "Documentação"],
+    "ctaText": "Comprar",
+    "checkout": {
+      "BR": "checkout.html?country=BR&id=consultoria",
+      "US": "checkout.html?country=US&id=consultoria"
+    },
+    "countries": ["BR", "US"],
+    "prices": {
+      "BR": "R$ 79,00",
+      "US": "$14.90"
+    }
+  }
+]
